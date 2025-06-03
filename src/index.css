@@ -8,6 +8,16 @@ form{
 button{
     margin-top: 3%;
     margin-bottom: 3%;
-    background-color:blueviolet;
     border-radius: 2%;
+    margin-left: 2px;
+    background-color: blueviolet;
+}
+
+li>*{
+    width: max-content;
+    display: flex;
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

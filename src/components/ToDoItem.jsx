@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { GrCompliance } from "react-icons/gr";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { FaSave } from "react-icons/fa";
+import { FaUndo } from "react-icons/fa";
 
 function ToDoItem(props) {
   const { items, updateItem , deleteItem} = props;
   const [name, setName] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [completed , setComplted] = useState([]);
 
   function handleChange(event) {
     setName(event.target.value);
@@ -29,7 +35,13 @@ function ToDoItem(props) {
   }
 
   function handleCompleted(index){
-
+    setComplted(prevItems=>{
+      if(prevItems.includes(index)){
+        return prevItems.filter((i)=>i!==index)}
+        else{
+          return[...prevItems,index];
+        }
+    });
   }
 
   return (
@@ -40,16 +52,16 @@ function ToDoItem(props) {
             <>
               <input type="text" value={name} onChange={handleChange} />
               <button type="button" onClick={() => handleSave(index)}>
-                Save
+                <FaSave size={20}/>
               </button>
             </>
           ) : (
-            <div>{item}
+            <div style={{textDecoration : completed.includes(index)?"line-through":"none"}}>{item}
               <button type="button" onClick={() => handleClick(index)}>
-                Edit
+                <FaEdit size={20}/>
               </button>
-              <button onClick={()=>handleDelete(index)}>Delete</button>
-              <button onClick={()=>handleCompleted(index)}>Mark As Completed</button>
+              <button onClick={()=>handleDelete(index)}><MdDelete size={20}/></button>
+              <button onClick={()=>handleCompleted(index)}>{completed.includes(index)?<FaUndo size={20}/>:<GrCompliance size={20}/>}</button>
             </div>
           )}
         </li>
